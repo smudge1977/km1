@@ -12,7 +12,8 @@ dpkg-deb --build $PACKAGE
 if [ -f "$BUILDROOT/$PACKAGE/DEBIAN/control" ]; then
 
 	VERSION=$(cat $BUILDROOT/$PACKAGE/DEBIAN/control | grep Version | awk -F ' ' '{print $2}')
-
+else
+	VERSION=0
 fi
 
 mv $PACKAGE.deb $PACKAGE_$VERSION.deb
