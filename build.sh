@@ -3,9 +3,18 @@
 BUILDROOT=/home/keith/build
 PACKAGE=km1
 
-if [ -d "$BUILDROOT/$PACKAGE" ]; then rm -Rf $BUILDROOT/$PACKAGE; fi
+cd $BUILDROOT
+if [ -d "$BUILDROOT/$PACKAGE" ]; 
+then 
+	#rm -Rf $BUILDROOT/$PACKAGE; 
+	cd $BUILDROOT/$PACKAGE
+	git pull
+	cd ..
+else
+	git clone "git@github.com:smudge1977/$PACKAGE.git"
 
-git clone "git@github.com:smudge1977/$PACKAGE.git"
+fi
+
 
 dpkg-deb --build $PACKAGE 
 
@@ -16,6 +25,8 @@ else
 	VERSION=0
 fi
 
-mv $PACKAGE.deb $PACKAGE_$VERSION.deb
-scp $PACKAGE_$VERSION.deb keith@home001.local:/home/keith/ubuntu
+
+echo Version is $VERSION
+mv ${PACKAGE}.deb ${PACKAGE}_${VERSION}.deb
+scp ${PACKAGE}_${VERSION}.deb keith@home001.local:/home/keith/ubuntu
 
