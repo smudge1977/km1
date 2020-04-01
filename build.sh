@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#KM 1/4/20 - main script done now tracks changes after pull
+#
+# TODOs - Take package name as parameter or loop list file.
+#
+# Assumtions: All packages are on github in smudge1977 account.
+# Build machine has its public key added to git hub
+
 
 BUILDROOT=/home/keith/build
 PACKAGE=km1
@@ -10,6 +17,7 @@ then
 	#rm -Rf $BUILDROOT/$PACKAGE; 
 	cd $BUILDROOT/$PACKAGE
 	git pull
+	git add .
 	cd ..
 else
 	git clone "git@github.com:smudge1977/$PACKAGE.git"
